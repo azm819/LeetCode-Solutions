@@ -1,22 +1,22 @@
 class Solution {
     func isValid(_ s: String) -> Bool {
         var ind = s.startIndex
-        var queue = [Character]()
+        var stack = [Character]()
         while ind != s.endIndex {
             switch s[ind] {
             case ")":
-                let last = queue.popLast()
+                let last = stack.popLast()
                 if last != "(" { return false }
             case "}":
-                let last = queue.popLast()
+                let last = stack.popLast()
                 if last != "{" { return false }
             case "]":
-                let last = queue.popLast()
+                let last = stack.popLast()
                 if last != "[" { return false }
-            default: queue.append(s[ind])
+            default: stack.append(s[ind])
             }
             ind = s.index(after: ind)
         }
-        return queue.isEmpty
+        return stack.isEmpty
     }
 }
