@@ -1,52 +1,34 @@
 class Solution {
     func numIslands(_ grid: [[Character]]) -> Int {
-        let n = grid[0].count
-        let m = grid.count
-        var visited = Array<Array<Bool>>(repeating: .init(repeating: false, count: n), count: m)
+        let n = grid.count
+        let m = grid[0].count
+        var visited = Array(repeating: Array(repeating: false, count: m), count: n)
         var result = 0
-        for i in 0..<m {
-            for j in 0..<n {
-                if grid[i][j] == "0" {
-                    visited[i][j] = true
-                    continue
-                }
-                if !visited[i][j] {
+        for i in 0..<n {
+            for j in 0..<m {
+                if visited[i][j] { continue }
+                if grid[i][j] == "1" {
                     result += 1
-                    var queue = [(Int, Int)]()
-                    queue.append((i, j))
+                    var queue = [(i, j)]
                     while !queue.isEmpty {
-                        let e = queue.popLast()!
-                        visited[e.0][e.1] = true
-
-                        if e.0 > 0 {
-                            let f = e.0 - 1
-                            if !visited[f][e.1] && grid[f][e.1] == "1" {
-                                queue.append((f, e.1))
-                            }
+                        let (x, y) = queue.popLast()!
+                        if visited[x][y] { continue }
+                        if x > 0 && grid[x - 1][y] == "1" {
+                            queue.append((x - 1, y))
                         }
-
-                        if e.0 < m - 1 {
-                            let f = e.0 + 1
-                            if !visited[f][e.1] && grid[f][e.1] == "1" {
-                                queue.append((f, e.1))
-                            }
+                        if x < n - 1 && grid[x + 1][y] == "1" {
+                            queue.append((x + 1, y))
                         }
-
-                        if e.1 > 0 {
-                            let s = e.1 - 1
-                            if !visited[e.0][s] && grid[e.0][s] == "1" {
-                                queue.append((e.0, s))
-                            }
+                        if y > 0 && grid[x][y - 1] == "1" {
+                            queue.append((x, y - 1))
                         }
-
-                        if e.1 < n - 1 {
-                            let s = e.1 + 1
-                            if !visited[e.0][s] && grid[e.0][s] == "1" {
-                                queue.append((e.0, s))
-                            }
+                        if y < m - 1 && grid[x][y + 1] == "1" {
+                            queue.append((x, y + 1))
                         }
+                        visited[x][y] = true
                     }
                 }
+                visited[i][j] = true
             }
         }
         return result
