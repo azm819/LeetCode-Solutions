@@ -1,21 +1,18 @@
+private extension String {
+    var isNotEmpty: Bool {
+        !isEmpty
+    }
+}
+
 class Solution {
     func longestCommonPrefix(_ strs: [String]) -> String {
-        var result = ""
-        let firstStr = strs.first!
-        var ind = firstStr.startIndex
-        var currCh: Character
-        if ind != firstStr.endIndex {
-            currCh = firstStr[ind]
-        } else {
-            return result
+        guard !strs.isEmpty && strs.allSatisfy(\.isNotEmpty) else { return "" }
+        var ind = strs[0].startIndex
+        var result = [Character]()
+        while strs.allSatisfy({ ind < $0.endIndex }) && strs.allSatisfy({ $0[ind] == strs[0][ind] }) {
+            result.append(strs[0][ind])
+            ind = strs[0].index(after: ind)
         }
-        while strs.allSatisfy({ ind != $0.endIndex && $0[ind] == currCh }) {
-            ind = firstStr.index(after: ind)
-            result.append(currCh)
-            if ind != firstStr.endIndex {
-                currCh = firstStr[ind]
-            }
-        }
-        return result
+        return String(result)
     }
 }
