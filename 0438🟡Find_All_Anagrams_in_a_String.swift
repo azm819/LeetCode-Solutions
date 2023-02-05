@@ -40,8 +40,6 @@ class Solution {
             sMap[s[from]] = sMap[s[from]].decreased()
             sMap[s[to]] = sMap[s[to]].increased()
             i += 1
-            print(i)
-            print(sMap)
             if sMap == pMap {
                 result.append(i)
             }
