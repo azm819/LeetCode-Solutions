@@ -1,28 +1,33 @@
 class Solution {
-    private func getInd(i: Int, n: Int) -> (Int, Int) {
-        let f = i / n
-        let s = i - f * n
-        if s == 0 {
-            return (f - 1, n - 1)
-        }
-        return (f, s - 1)
-    }
-
     func searchMatrix(_ matrix: [[Int]], _ target: Int) -> Bool {
-        var l = 1
-        let n = matrix[0].count
-        let m = matrix.count
-        var r = n * m
-        while l <= r {
+        var l = 0
+        var r = matrix.count - 1
+        while l < r {
             let c = (l + r) / 2
-            let ind = getInd(i: c, n: n)
-            let value = matrix[ind.0][ind.1]
-            if value == target {
+            if matrix[c][0] == target {
                 return true
-            } else if value < target {
-                l = c + 1
+            } else if matrix[c][0] < target {
+                if matrix[c + 1][0] > target {
+                    l = c
+                    break
+                } else {
+                    l = c + 1
+                }
             } else {
                 r = c - 1
+            }
+        }
+        let row = l
+        l = 0
+        r = matrix[row].count - 1
+        while l <= r {
+            let c = (l + r) / 2
+            if matrix[row][c] == target {
+                return true
+            } else if matrix[row][c] > target {
+                r = c - 1
+            } else {
+                l = c + 1
             }
         }
         return false
