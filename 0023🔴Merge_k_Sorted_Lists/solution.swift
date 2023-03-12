@@ -10,25 +10,27 @@
  */
 class Solution {
     func mergeKLists(_ lists: [ListNode?]) -> ListNode? {
-        var values = [Int]()
-        lists.forEach {
-            var curr = $0
-            while curr != nil {
-                values.append(curr!.val)
-                curr = curr?.next
-            }
-        }
+        var ls = lists
         var result: ListNode?
         var current: ListNode?
-        values.sort()
-        values.forEach {
+        while ls.contains(where: { $0 != nil }) {
+            var minInd = 0
+            var minValue = 100000
+            ls.enumerated().forEach {
+                guard let node = $0.element else { return }
+                if minValue > node.val {
+                    minValue = node.val
+                    minInd = $0.offset
+                }
+            }
             if result == nil {
-                result = ListNode($0)
+                result = ListNode(minValue)
                 current = result
             } else {
-                current?.next = ListNode($0)
+                current?.next = ListNode(minValue)
                 current = current?.next
             }
+            ls[minInd] = ls[minInd]?.next
         }
         return result
     }
