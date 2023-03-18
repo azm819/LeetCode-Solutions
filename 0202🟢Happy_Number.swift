@@ -15,7 +15,6 @@ class Solution {
             }
             n = res
         }
-        // print(old)
         return true
     }
 }
