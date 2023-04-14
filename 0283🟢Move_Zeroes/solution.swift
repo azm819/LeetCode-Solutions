@@ -1,17 +1,13 @@
 class Solution {
     func moveZeroes(_ nums: inout [Int]) {
-        var l = 0
-        var r = 0
+        guard var l = nums.firstIndex(of: .zero) else { return }
+        var r = l + 1
         while r < nums.count {
             if nums[r] != 0 {
                 nums.swapAt(l, r)
                 l += 1
             }
             r += 1
-        }
-        while l < nums.count {
-            nums[l] = 0
-            l += 1
         }
     }
 }
