@@ -11,14 +11,17 @@ class Solution : GuessGame {
     func guessNumber(_ n: Int) -> Int {
         var l = 1
         var r = n
-        while l <= r {
+        while l < r {
             let c = (l + r) / 2
             switch guess(c) {
-                case -1: r = c - 1
-                case 1: l = c + 1
-                default: return c
+            case -1:
+                r = c - 1
+            case 1:
+                l = c + 1
+            default:
+                return c
             }
         }
-        return n
+        return l
     }
 }
