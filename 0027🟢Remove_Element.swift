@@ -1,20 +1,17 @@
 class Solution {
     func removeElement(_ nums: inout [Int], _ val: Int) -> Int {
-        var f = 0
-        var s = nums.endIndex - 1
-        while f <= s {
-            while f != nums.endIndex && nums[f] != val {
-                f += 1
+        guard var r = nums.lastIndex(where: { $0 != val }) else { return .zero }
+        var l = 0
+        while l < r {
+            if nums[l] == val {
+                nums.swapAt(l, r)
+                while r >= .zero && nums[r] == val {
+                    r -= 1
+                }
             }
-            while s >= 0 && nums[s] == val {
-                s -= 1
-            }
-            if f < s && f != nums.endIndex && s >= 0 {
-                let a = nums[f]
-                nums[f] = nums[s]
-                nums[s] = a
-            }
+            l += 1
         }
-        return f
+        return nums[l] == val ? l : l + 1
     }
 }
+
