@@ -1,9 +1,5 @@
 class Solution {
     func checkStraightLine(_ coordinates: [[Int]]) -> Bool {
-        // y1 = k * x1 + a
-        // y2 = k * x2 + a
-        // y1 - y2 = k * (x1 - x2)
-        // k = (y1 - y2) / (x1 - x2)
         let x1 = coordinates[0][0]
         let y1 = coordinates[0][1]
         let x2 = coordinates[1][0]
