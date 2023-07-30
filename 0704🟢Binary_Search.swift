@@ -1,15 +1,15 @@
 class Solution {
     func search(_ nums: [Int], _ target: Int) -> Int {
-        var l = 0
-        var r = nums.count - 1
-        while l <= r {
-            let c = (l + r) / 2
+        var left = 0
+        var right = nums.count - 1
+        while left <= right {
+            let c = (left + right) / 2 // индекс «середины» массива
             if nums[c] == target {
                 return c
+            } else if target < nums[c] {
+                right = c - 1 // запускаем binarySearch слева от «середины» массива
             } else if nums[c] < target {
-                l = c + 1
-            } else {
-                r = c - 1
+                left = c + 1 // запускаем binarySearch справа от «середины» массива
             }
         }
         return -1
