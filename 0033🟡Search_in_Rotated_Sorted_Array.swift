@@ -4,20 +4,19 @@ class Solution {
         var r = nums.count - 1
         while l <= r {
             let c = (l + r) / 2
-            let val = nums[c]
-            if val == target {
+            if nums[c] == target {
                 return c
-            } else if nums[l] <= val {
-                if nums[l] <= target && val > target {
-                    r = c - 1
-                } else {
+            } else if nums[c] < target {
+                if nums[l] <= nums[c] || nums[l] > target {
                     l = c + 1
+                } else {
+                    r = c - 1
                 }
             } else {
-                if nums[r] >= target && val < target {
-                    l = c + 1
-                } else {
+                if nums[c] <= nums[r] || nums[r] < target {
                     r = c - 1
+                } else {
+                    l = c + 1
                 }
             }
         }
