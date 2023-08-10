@@ -1,31 +1,39 @@
 class Solution {
-    func search(_ nums: [Int], _ target: Int) -> Bool {
-        var l = 0
-        var r = nums.count - 1
-        while l <= r {
-            let c = (l + r) / 2
-            let val = nums[c]
-            if val == target {
-                return true
-            } else {
-                let lVal = nums[l]
-                if lVal < val {
-                    if lVal <= target && val > target {
-                        r = c - 1
-                    } else {
-                        l = c + 1
-                    }
-                } else if lVal > val {
-                    if nums[r] >= target && val < target {
-                        l = c + 1
-                    } else {
-                        r = c - 1
-                    }
+    private func binSearch(_ nums: [Int], _ target: Int, _ l: Int, _ r: Int) -> Bool {
+        guard l <= r else { return false }
+        let c = (l + r) / 2
+
+        if nums[c] == target { return true }
+
+        if nums[l] == nums[c] && nums[c] == nums[r] {
+            return binSearch(nums, target, l, c - 1) || binSearch(nums, target, c + 1, r)
+        }
+
+        let isShiftOnRight = nums[c] >= nums[l]
+        if nums[c] > target {
+            if isShiftOnRight {
+                if nums[l] <= target {
+                    return binSearch(nums, target, l, c - 1)
                 } else {
-                    l += 1
+                    return binSearch(nums, target, c + 1, r)
                 }
+            } else {
+                return binSearch(nums, target, l, c - 1)
+            }
+        } else {
+            if !isShiftOnRight {
+                if nums[r] >= target {
+                    return binSearch(nums, target, c + 1, r)
+                } else {
+                    return binSearch(nums, target, l, c - 1)
+                }
+            } else {
+                return binSearch(nums, target, c + 1, r)
             }
         }
-        return false
+    }
+
+    func search(_ nums: [Int], _ target: Int) -> Bool {
+        binSearch(nums, target, .zero, nums.count - 1)
     }
 }
