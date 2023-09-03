@@ -24,14 +24,14 @@ class LRUCache {
 
     func get(_ key: Int) -> Int {
         guard let node = cache[key] else { return -1 }
-        cutAndAddToTail(node)
+        cutAndAddToHead(node)
         return node.value
     }
 
     func put(_ key: Int, _ value: Int) {
         if let node = cache[key] {
             node.value = value
-            cutAndAddToTail(node)
+            cutAndAddToHead(node)
         } else {
             let node = Node(key: key, value: value)
             cache[key] = node
@@ -39,7 +39,7 @@ class LRUCache {
         }
     }
 
-    private func cutAndAddToTail(_ node: Node) {
+    private func cutAndAddToHead(_ node: Node) {
         guard head !== node else { return }
 
         if tail === node {
