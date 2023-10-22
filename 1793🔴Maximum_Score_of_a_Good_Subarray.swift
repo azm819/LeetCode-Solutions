@@ -16,8 +16,10 @@ class Solution {
             ind += 1
         }
         var result = nums[k]
+        var leftInd = 0
+        var rightInd = nums.count - 1
         for curMin in min(mins.first!, mins.last!) ... nums[k] {
-            var l = 0
+            var l = leftInd
             var r = k
             while l < r {
                 let c = (l + r) / 2
@@ -27,9 +29,9 @@ class Solution {
                     r = c
                 }
             }
-            let leftInd = l
+            leftInd = l
             l = k
-            r = nums.count - 1
+            r = rightInd
             while l < r {
                 let c = (l + r + 1) / 2
                 if mins[c] < curMin {
@@ -38,7 +40,7 @@ class Solution {
                     l = c
                 }
             }
-            let rightInd = l
+            rightInd = l
             result = max(result, (rightInd - leftInd + 1) * curMin)
         }
         return result
