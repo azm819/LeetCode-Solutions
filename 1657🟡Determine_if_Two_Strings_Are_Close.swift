@@ -11,4 +11,3 @@ class Solution {
         return counts1.keys == counts2.keys && counts1.values.sorted() == counts2.values.sorted()
     }
 }
-
