@@ -1,6 +1,4 @@
 class Solution {
-    private var res = [1, 2]
-
     func climbStairs(_ n: Int) -> Int {
         guard n > 1 else { return 1 }
         guard n > 2 else { return 2 }
