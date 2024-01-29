@@ -1,54 +1,48 @@
 class MyQueue {
-    private struct Stack {
-        private var list = [Int]()
+    private class Node {
+        var prev: Node?
+        var next: Node?
+        let val: Int
 
-        var isEmpty: Bool {
-            list.isEmpty
-        }
-
-        mutating func push(_ x: Int) {
-            list.append(x)
-        }
-
-        mutating func pop() -> Int {
-            list.popLast()!
-        }
-
-        mutating func peek() -> Int {
-            list.last!
+        init(val: Int) {
+            self.val = val
         }
     }
-
-    private var stack1 = Stack()
-    private var stack2 = Stack()
-
-    init() {}
+    private var head: Node?
+    private var tail: Node?
 
     func push(_ x: Int) {
-        while !stack2.isEmpty {
-            stack1.push(stack2.pop())
+        var node = Node(val: x)
+        if empty() {
+            head = node
+            tail = node
+        } else {
+            node.next = head
+            head?.prev = node
+            head = node
         }
-        stack1.push(x)
     }
 
     func pop() -> Int {
-        while !stack1.isEmpty {
-            stack2.push(stack1.pop())
+        defer {
+            tail = tail?.prev
+            tail?.next = nil
+            if tail == nil {
+                head = nil
+            }
         }
-        return stack2.pop()
+        return peek()
     }
 
     func peek() -> Int {
-        while !stack1.isEmpty {
-            stack2.push(stack1.pop())
-        }
-        return stack2.peek()
+        tail!.val
     }
 
     func empty() -> Bool {
-        stack1.isEmpty && stack2.isEmpty
+        head == nil
     }
 }
+
 
 /**
  * Your MyQueue object will be instantiated and called as such:
