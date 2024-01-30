@@ -4,25 +4,26 @@ class Solution {
         for token in tokens {
             switch token {
             case "+":
-                let rhs = stack.popLast()!
-                let lhs = stack.popLast()!
+                let rhs = stack.removeLast()
+                let lhs = stack.removeLast()
                 stack.append(lhs + rhs)
             case "-":
-                let rhs = stack.popLast()!
-                let lhs = stack.popLast()!
+                let rhs = stack.removeLast()
+                let lhs = stack.removeLast()
                 stack.append(lhs - rhs)
             case "*":
-                let rhs = stack.popLast()!
-                let lhs = stack.popLast()!
+                let rhs = stack.removeLast()
+                let lhs = stack.removeLast()
                 stack.append(lhs * rhs)
             case "/":
-                let rhs = stack.popLast()!
-                let lhs = stack.popLast()!
+                let rhs = stack.removeLast()
+                let lhs = stack.removeLast()
                 stack.append(lhs / rhs)
             default:
                 stack.append(Int(token)!)
             }
         }
-        return stack.last!
+        return stack.removeLast()
     }
 }
+
