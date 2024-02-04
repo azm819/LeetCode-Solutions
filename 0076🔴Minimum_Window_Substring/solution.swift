@@ -36,6 +36,6 @@ class Solution {
             r += 1
         }
         guard lr != -1 else { return "" }
-        return String(s[lr...rr])
+        return String(s[lr ... rr])
     }
 }
