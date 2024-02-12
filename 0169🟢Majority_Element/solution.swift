@@ -1,14 +1,18 @@
 class Solution {
     func majorityElement(_ nums: [Int]) -> Int {
-        var freqs = [Int: Int]()
-        let limit = nums.count / 2
+        var count = 0
+        var candidate = -1_000_000_001
         for num in nums {
-            freqs[num, default: .zero] += 1
-            if freqs[num]! > limit {
-                return num
+            if count == .zero {
+                candidate = num
+            }
+            if num == candidate {
+                count += 1
+            } else {
+                count -= 1
             }
         }
-        fatalError()
+        return candidate
     }
 }
 
