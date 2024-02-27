@@ -13,18 +13,19 @@
  *     }
  * }
  */
+
 class Solution {
-    private func height(_ root: TreeNode?) -> (Int, Int) {
-        guard let root = root else { return (.zero, .zero) }
-        let (leftH, leftD) = height(root.left)
-        let (rightH, rightD) = height(root.right)
-        return (max(leftH, rightH) + 1, max(max(leftD, rightD), leftH + rightH))
+    private func heightAndDiameterOfBinaryTree(_ root: TreeNode?) -> (height: Int, diameter: Int) {
+        guard let root = root else { return (height: .zero, diameter: .zero) }
+        let left = heightAndDiameterOfBinaryTree(root.left)
+        let right = heightAndDiameterOfBinaryTree(root.right)
+        return (
+            height: max(left.height, right.height) + 1,
+            diameter: max(max(left.diameter, right.diameter), left.height + right.height)
+        )
     }
 
     func diameterOfBinaryTree(_ root: TreeNode?) -> Int {
-        guard let root = root else { return .zero }
-        let (leftH, leftD) = height(root.left)
-        let (rightH, rightD) = height(root.right)
-        return max(max(leftD, rightD), leftH + rightH)
+        heightAndDiameterOfBinaryTree(root).diameter
     }
 }
