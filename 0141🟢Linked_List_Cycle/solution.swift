@@ -11,16 +11,16 @@
  */
 
 class Solution {
-    func hasCycle(_ head: ListNode?) -> Bool {
-        var f = head
-        var s = head?.next
-        while f != nil && s != nil {
-            if f === s {
-                return true
-            }
-            f = f?.next
-            s = s?.next?.next
+func hasCycle(_ head: ListNode?) -> Bool {
+    var first = head
+    var second = head?.next
+    while first != nil && second != nil {
+        if first === second {
+            return true
         }
-        return false
+        first = first?.next
+        second = second?.next?.next
     }
+    return false
+}
 }
