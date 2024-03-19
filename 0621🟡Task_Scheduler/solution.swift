@@ -1,21 +1,21 @@
 class Solution {
     func leastInterval(_ tasks: [Character], _ n: Int) -> Int {
         guard n > .zero else { return tasks.count }
-        var map = [Character: Int]()
-        var maximum = 0
+        var counts = [Character: Int]()
+        var maxCount = 0
         for task in tasks {
-            map[task] = map[task, default: .zero] + 1
-            maximum = max(maximum, map[task]!)
+            let newCount = counts[task, default: .zero] + 1
+            counts[task] = newCount
+            maxCount = max(maxCount, newCount)
         }
-        maximum -= 1
-        var result = (n + 1) * maximum
+        maxCount -= 1
+        var result = (n + 1) * maxCount
         var places = result
-        for value in map.values {
-            let ava = min(value, min(maximum, places))
-            places -= ava
-            result += value - ava
+        for count in counts.values {
+            let available = min(count, min(maxCount, places))
+            places -= available
+            result += count - available
         }
-        map.removeAll()
         return result
     }
 }
