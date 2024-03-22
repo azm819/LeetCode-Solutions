@@ -10,20 +10,36 @@
  */
 class Solution {
     func isPalindrome(_ head: ListNode?) -> Bool {
-        var head = head
-        var result = [Int]()
-        while head != nil {
-            result.append(head!.val)
-            head = head?.next
+        var cur = head
+        var count = 0
+        while cur != nil {
+            count += 1
+            cur = cur?.next
         }
-        var i = 0
-        var j = result.count - 1
-        while i < j {
-            if result[i] != result[j] {
+
+        guard count > 1 else { return true }
+
+        var prev: ListNode?
+        cur = head
+        var curCount = 0
+        while curCount < count / 2 {
+            let next = cur?.next
+            cur?.next = prev
+            prev = cur
+            cur = next
+            curCount += 1
+        }
+
+        if count % 2 == 1 {
+            cur = cur?.next
+        }
+
+        while prev != nil && cur != nil {
+            if prev?.val != cur?.val {
                 return false
             }
-            i += 1
-            j -= 1
+            prev = prev?.next
+            cur = cur?.next
         }
         return true
     }
