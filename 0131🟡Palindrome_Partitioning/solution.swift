@@ -1,38 +1,57 @@
 class Solution {
-    private func isPolydrome(_ s: [Character]) -> Bool {
+    private func backtrack(
+        _ ind: String.Index,
+        _ s: String,
+        _ substring: inout [Character],
+        _ partition: inout [[Character]],
+        _ result: inout [[String]]
+    ) {
+        guard ind != s.endIndex else {
+            if substring.isPolydrome {
+                partition.append(substring)
+                defer {
+                    partition.removeLast()
+                }
+                result.append(partition.map { String($0) })
+            }
+            return
+        }
+
+        if substring.isPolydrome {
+            partition.append(substring)
+            defer {
+                partition.removeLast()
+            }
+            var nextSubstring = [s[ind]]
+            backtrack(s.index(after: ind), s, &nextSubstring, &partition, &result)
+        }
+
+        substring.append(s[ind])
+        defer {
+            substring.removeLast()
+        }
+        backtrack(s.index(after: ind), s, &substring, &partition, &result)
+    }
+
+    func partition(_ s: String) -> [[String]] {
+        var result = [[String]]()
+        var substring = [Character]()
+        var partition = [[Character]]()
+        backtrack(s.startIndex, s, &substring, &partition, &result)
+        return result
+    }
+}
+
+private extension Array where Element == Character {
+    var isPolydrome: Bool {
+        guard !isEmpty else { return false }
         var a = 0
-        var b = s.count - 1
+        var b = count - 1
         while a < b {
-            if s[a] != s[b] { return false }
+            if self[a] != self[b] { return false }
             a += 1
             b -= 1
         }
         return true
-    }
-
-    private func part(_ s: String, _ ind: String.Index, _ result: inout [[[Character]]]) {
-        guard ind < s.endIndex else { return }
-        let ch = s[ind]
-        var resA = [[[Character]]]()
-        for i in 0..<result.count {
-            let lastInd = result[i].count - 1
-            let last = result[i][lastInd]
-            if isPolydrome(last) {
-                resA.append(result[i] + [[ch]])
-            }
-            result[i][lastInd].append(ch)
-        }
-        result += resA
-        part(s, s.index(after: ind), &result)
-    }
-
-    func partition(_ s: String) -> [[String]] {
-        var result = [[[s[s.startIndex]]]]
-        part(s, s.index(after: s.startIndex), &result)
-        var res = [[String]]()
-        for r in result where isPolydrome(r.last!) {
-            res.append(r.map { String($0) })
-        }
-        return res
     }
 }
