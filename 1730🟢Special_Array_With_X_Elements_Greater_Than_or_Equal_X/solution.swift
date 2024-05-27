@@ -1,21 +1,25 @@
 class Solution {
     func specialArray(_ nums: [Int]) -> Int {
-        let nums = nums.sorted()
         var l = 1
         var r = nums.count
-        while l <= r {
+        while l < r {
             let c = (l + r) / 2
-            let ind = nums.count - c
-            if nums[ind] >= c {
-                if ind == 0 || nums[ind - 1] < c {
-                    return c
-                } else {
-                    l = c + 1
-                }
+            var count = 0
+            for num in nums where num >= c {
+                count += 1
+            }
+            if count == c {
+                return c
+            } else if count > c {
+                l = c + 1
             } else {
-                r = c - 1
+                r = c
             }
         }
-        return -1
+        var count = 0
+        for num in nums where num >= l {
+            count += 1
+        }
+        return count == l ? l : -1
     }
 }
