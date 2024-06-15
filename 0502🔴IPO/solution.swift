@@ -13,9 +13,10 @@ class Solution {
         }.sorted { (lhs: Project, rhs: Project) in
             return lhs.profit > rhs.profit || lhs.profit == rhs.profit && lhs.capital < rhs.capital
         }
+
         while k > 0 {
             var picked = 0
-            for i in 0..<projects.count {
+            for i in 0 ..< projects.count {
                 if projects[i].capital <= result && projects[i].notPicked {
                     result += projects[i].profit
                     projects[i].notPicked = false
