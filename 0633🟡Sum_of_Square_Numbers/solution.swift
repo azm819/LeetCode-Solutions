@@ -1,6 +1,6 @@
 class Solution {
     func judgeSquareSum(_ c: Int) -> Bool {
-        for i in 0...c {
+        for i in 0 ... c {
             let a = i * i
             if a > c {
                 break
