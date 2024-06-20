@@ -7,9 +7,9 @@ class Solution {
             let c = (l + r + 1) / 2
             var last = positions.first!
             var baskets = 1
-            for pos in positions {
-                if pos - last >= c {
-                    last = pos
+            for position in positions {
+                if position - last >= c {
+                    last = position
                     baskets += 1
                 }
             }
