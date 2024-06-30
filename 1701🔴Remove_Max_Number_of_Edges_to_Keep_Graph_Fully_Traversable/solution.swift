@@ -33,14 +33,14 @@ class Solution {
         var ranksA = [Int]()
         var parentsB = [Int]()
         var ranksB = [Int]()
-        for i in 0...n {
+        for i in 0 ... n {
             parentsA.append(i)
             ranksA.append(.zero)
             parentsB.append(i)
             ranksB.append(.zero)
         }
 
-        var res = 0
+        var requiredEdgesCount = 0
         for edge in edges where edge[0] == 3 {
             var isRequired = false
             if findSet(edge[1], &parentsA) != findSet(edge[2], &parentsA) {
@@ -52,7 +52,7 @@ class Solution {
                 isRequired = true
             }
             if isRequired {
-                res += 1
+                requiredEdgesCount += 1
             }
         }
 
@@ -60,25 +60,25 @@ class Solution {
             if edge[0] == 1 {
                 if findSet(edge[1], &parentsA) != findSet(edge[2], &parentsA) {
                     unionSets(edge[1], edge[2], &parentsA, &ranksA)
-                    res += 1
+                    requiredEdgesCount += 1
                 }
             }
             if edge[0] == 2 {
                 if findSet(edge[1], &parentsB) != findSet(edge[2], &parentsB) {
                     unionSets(edge[1], edge[2], &parentsB, &ranksB)
-                    res += 1
+                    requiredEdgesCount += 1
                 }
             }
         }
 
         let parentA = findSet(1, &parentsA)
         let parentB = findSet(1, &parentsB)
-        for i in 1...n {
+        for i in 1 ... n {
             if parentA != findSet(i, &parentsA) || parentB != findSet(i, &parentsB) {
                 return -1
             }
         }
 
-        return edges.count - res
+        return edges.count - requiredEdgesCount
     }
 }
