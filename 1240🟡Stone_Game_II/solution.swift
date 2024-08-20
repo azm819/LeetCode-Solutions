@@ -7,12 +7,14 @@ class Solution {
         _ memo: inout [[[Int?]]]
     ) -> Int {
         guard i < piles.count else { return .zero }
+
         if let mem = memo[p][i][min(m, piles.count)] {
             return mem
         }
+
         var result: Int = p == .zero ? .zero : .max
         var curSum = 0
-        for c in 0..<2 * m {
+        for c in 0 ..< 2 * m {
             let newInd = i + c
             if newInd >= piles.count {
                 break
