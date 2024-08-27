@@ -1,7 +1,7 @@
 class Solution {
     func maxProbability(_ n: Int, _ edges: [[Int]], _ succProb: [Double], _ start: Int, _ end: Int) -> Double {
         var neighbours = [Int: [(Int, Double)]]()
-        for i in 0..<edges.count {
+        for i in 0 ..< edges.count {
             neighbours[edges[i][0], default: []].append((edges[i][1], succProb[i]))
             neighbours[edges[i][1], default: []].append((edges[i][0], succProb[i]))
         }
