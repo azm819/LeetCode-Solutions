@@ -34,16 +34,16 @@ class Solution {
         guard n > 1 else { return .zero }
         var parents = [Int]()
         var ranks = [Int]()
-        for i in 0..<n {
+        for i in 0 ..< n {
             parents.append(i)
             ranks.append(.zero)
         }
-        for i in 0..<n-1 {
-            for j in i+1..<n where stones[i][0] == stones[j][0] || stones[i][1] == stones[j][1] {
+        for i in 0 ..< n - 1 {
+            for j in i + 1 ..< n where stones[i][0] == stones[j][0] || stones[i][1] == stones[j][1] {
                 unionSets(i, j, &parents, &ranks)
             }
         }
-        for i in 0..<n {
+        for i in 0 ..< n {
             findSet(i, &parents)
         }
         return n - Set(parents).count
