@@ -6,7 +6,7 @@ class Solution {
         }
         var ind2 = s2.startIndex
         var set2 = [Character: Int]()
-        for _ in 0..<s1.count {
+        for _ in 0 ..< s1.count {
             set2[s2[ind2]] = set2[s2[ind2], default: .zero] + 1
             ind2 = s2.index(after: ind2)
         }
